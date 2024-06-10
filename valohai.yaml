@@ -1,0 +1,6 @@
+- step:
+    name: hello-world
+    image: python:3.12
+    command:
+      - pip install -r requirements.txt
+      - python ./hello.py {parameters}
