@@ -4,3 +4,5 @@
     command:
       - pip install -r requirements.txt
       - python ./hello.py {parameters}
+    inputs:
+      - name: datasetversion
