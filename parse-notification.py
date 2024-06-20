@@ -19,14 +19,16 @@ args = parser.parse_args()
 
 # ---
 
+# retrieve new dataset version URI from notification payload
+
 input_file = valohai.inputs("payload").path() or args.payload
-print(f"Reading payload from {input_file}")
 
 with open(args.payload or valohai.inputs("payload").path()) as file:
     payload = json.load(file)
 
-print("Got this data from the input:")
-print(json.dumps(payload, indent=2))
-
 dataset_version_uri = payload["data"]["version"]["uri"]
-print(f"{dataset_version_uri=}")
+
+# output the URI as execution metadata
+# this will be available to the next step
+
+print(json.dumps({"dataset": dataset_version_uri}))

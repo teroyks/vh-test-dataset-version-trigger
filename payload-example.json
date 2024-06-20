@@ -1,0 +1,15 @@
+{
+    "project": "01900c00-e8f1-929a-0567-c9cf84376d60",
+    "title": "Dataset Version Created: trigger-test-two-files",
+    "type": "dataset_version_created",
+    "body": "New dataset version trigger-test-two-files was created.",
+    "url": "",
+    "data": {
+        "version": {
+            "id": "dataset_version_UUID",
+            "name": "trigger-test-two-files",
+            "uri": "dataset://trigger-test/trigger-test-two-files",
+            "created_by": "admin"
+        }
+    }
+}
