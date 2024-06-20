@@ -6,6 +6,15 @@
       - pip install -r requirements.txt
       - python ./hello.py {parameters}
 - step:
+    name: parse-notification
+    image: python:3.12
+    environment: default
+    command:
+      - pip install -r requirements.txt
+      - python ./parse-notification.py {parameters}
+    inputs:
+      - name: payload
+- step:
     name: list-inputs
     image: python:3.12
     environment: default
