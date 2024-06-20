@@ -4,7 +4,7 @@ import valohai
 
 valohai.prepare(step="list-inputs")
 
-print("I have inputs!")
+print("I have inputs! (but no default)")
 
 inputs = {
     "dataset": "",
@@ -13,4 +13,4 @@ inputs = {
 valohai.prepare(step="list-inputs", default_inputs=inputs)
 
 for file_path in valohai.inputs("dataset").paths():
-    print("{file_path=}")
+    print(file_path)
