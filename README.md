@@ -106,6 +106,13 @@ A minimal example of the payload file:
 5. The dataset version URL is printed out in the execution log.
 6. The execution metadata includes a list of files in the dataset version.
 
+You can also run the step from the command line
+by giving a valid payload file URL as input:
+
+```shell
+vh execution run --adhoc parse-notification --payload="datum://01903653-c618-3562-ffa1-8ecdf2eefd06"
+```
+
 ### Handling Inputs Step
 
 The input handler step requires a dataset version URL as input.
@@ -116,6 +123,12 @@ The input handler step requires a dataset version URL as input.
 4. Select the action step.
 5. Paste the dataset version datum URL into the _Data_ > _Inputs_ > your step input > _URL_ field.
 6. Run the execution.
+
+Command line: give a dataset version URL as parameter:
+
+```shell
+vh execution run --adhoc list-inputs --dataset-url="dataset://trigger-test/trigger-test-two-files"
+```
 
 ### Triggering Pipeline
 
@@ -133,3 +146,13 @@ curl -X POST -d '{"type": "dataset_version_created","data": {"version":{"uri": "
 
 where the `datum://` value is the dataset version URL,
 and the `http` address is the trigger URL.
+
+You cannot pass inputs to a pipeline node from the command line,
+so to run the pipeline from the CLI,
+you need to set a default payload input for the parsing step in the YAML configuration.
+
+After that, you can run the pipeline with,
+
+```shell
+vh pipeline run --adhoc "Dataset handling automation"
+```
