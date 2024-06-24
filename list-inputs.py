@@ -4,7 +4,7 @@ import valohai
 
 valohai.prepare(step="list-inputs")
 
-print("I have inputs! (but no default)")
+print("I have inputs!")
 
 inputs = {
     "dataset": "",
