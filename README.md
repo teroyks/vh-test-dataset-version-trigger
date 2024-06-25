@@ -122,7 +122,8 @@ The input handler step requires a dataset version URL as input.
 3. Go to _Executions_ > _Create execution_.
 4. Select the action step.
 5. Paste the dataset version datum URL into the _Data_ > _Inputs_ > your step input > _URL_ field.
-6. Run the execution.
+6. Set the _dataset_url_ parameter to an empty string (`""`).
+7. Run the execution.
 
 Command line: give a dataset version URL as parameter:
 
