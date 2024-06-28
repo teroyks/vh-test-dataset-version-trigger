@@ -32,6 +32,9 @@ just remember to use the correct names in the following setup.
 
 ## Setup on Valohai
 
+_Note: this is the updated documentation for using a notification trigger
+instead of the old workflow that used a webhook._
+
 ### 1. Create Project
 
 Create a project that is owned by an organization
@@ -44,33 +47,23 @@ Go to _Settings_ > _Triggers_ > _Create trigger_.
 Set the trigger values:
 
 - Title: descriptive title, e.g. `Dataset version -> new data handler pipeline`
-- Trigger type: `Webhook`
+- Trigger type: `Notification`
 - Actions: `Run Pipeline`
   - Source Commit Reference: `main` (or e.g. a reference to a specific commit)
   - Pipeline Name: `Dataset handling automation` (the name used in the `valohai.yaml` file)
   - Pipeline Title: (the title for the pipeline runs created by this trigger)
   - Payload input name: `parse-notification.payload` (step and input names from `valohai.yaml`)
 
-Save the trigger and copy it’s URL for the next step.
+A _Managed Trigger Channel_ notification channel is automatically created for you
+when you save the trigger.
 
-### 3. Create Notification Channel
-
-Go to _Settings_ > _Notifications_ > _Channels_ > _Create new channel_.
-
-- Name: descriptive name e.g. `Trigger Pipeline to handle new dataset version`
-- Type: `Webhook`
-- ✅ Enabled
-- Ownership: `Organization`
-- URL: the URL from the trigger
-- Method: `POST`
-
-### 4. Create Project Notification
+### 3. Create Project Notification
 
 Go to _Settings_ > _Notifications_ > _Project Notifications_ > _Create new notification routing_.
 
 - Event: `dataset version is created`
 - Filter events by users: `All users`
-- Channel: select the channel you created in step 3.
+- Channel: select the `Launches trigger: TRIGGER_TITLE` channel (for the trigger you just created).
 
 ## Testing
 
@@ -132,21 +125,6 @@ vh execution run --adhoc list-inputs --dataset-url="dataset://trigger-test/trigg
 ```
 
 ### Triggering Pipeline
-
-You can trigger the pipeline manually by calling the Trigger URL directly
-(with any API client, e.g. Curl).
-
-You need to pass the notification payload as the call body
-(see the previous example for the notification parsing step).
-
-For example,
-
-```shell
-curl -X POST -d '{"type": "dataset_version_created","data": {"version":{"uri": "datum://01900c17-f30e-6cbe-aa94-d53cedcb9259"}}}' http://127.0.0.1:8000/api/v0/launch/01900c0e-a876-c915-de18-38c910a8bc0e/
-```
-
-where the `datum://` value is the dataset version URL,
-and the `http` address is the trigger URL.
 
 You cannot pass inputs to a pipeline node from the command line,
 so to run the pipeline from the CLI,
