@@ -12,7 +12,7 @@
       - python ./parse-notification.py {parameters}
     inputs:
       - name: payload
-        default: datum://01903653-c618-3562-ffa1-8ecdf2eefd06
+        # default: datum://01903653-c618-3562-ffa1-8ecdf2eefd06
 - step:
     name: list-inputs
     image: python:3.12
