@@ -25,6 +25,14 @@
     inputs:
       - name: dataset
         default: "{parameter:dataset_url}"
+- step:
+    name: read-inputs
+    image: python:3.12
+    command:
+      - pip install -r requirements.txt
+      - python ./read-inputs.py
+    inputs:
+      - name: dataset
 - pipeline:
     name: Dataset handling automation
     nodes:
