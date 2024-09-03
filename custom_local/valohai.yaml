@@ -1,9 +1,8 @@
 - step:
-    name: hello-world
+    name: hello-custom-local
     image: python:3.12
     command:
-      - pip install -r requirements.txt
-      - python ./hello.py {parameters}
+      - python ./hello.py
 - step:
     name: parse-notification
     image: python:3.12
@@ -36,3 +35,10 @@
         type: execution
     edges:
       - [parse-notification.metadata.dataset, list-inputs.parameter.dataset_url]
+- pipeline:
+    name: hello
+    nodes:
+      - name: hello-world
+        step: hello-custom-local
+        type: execution
+    edges: []
