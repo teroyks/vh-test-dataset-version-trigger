@@ -1,0 +1,44 @@
+- step:
+    name: hello-custom-staging
+    image: python:3.12
+    command:
+      - python ./hello.py
+- step:
+    name: parse-notification
+    image: python:3.12
+    command:
+      - pip install -r requirements.txt
+      - python ./parse-notification.py {parameters}
+    inputs:
+      - name: payload
+        default: datum://01903653-c618-3562-ffa1-8ecdf2eefd06
+- step:
+    name: list-inputs
+    image: python:3.12
+    command:
+      - pip install -r requirements.txt
+      - python ./list-inputs.py {parameters}
+    parameters:
+      - name: dataset_url
+        type: string
+    inputs:
+      - name: dataset
+        default: "{parameter:dataset_url}"
+- pipeline:
+    name: Dataset handling automation
+    nodes:
+      - name: parse-notification
+        step: parse-notification
+        type: execution
+      - name: list-inputs
+        step: list-inputs
+        type: execution
+    edges:
+      - [parse-notification.metadata.dataset, list-inputs.parameter.dataset_url]
+- pipeline:
+    name: hello
+    nodes:
+      - name: hello-world
+        step: hello-custom-staging
+        type: execution
+    edges: []
